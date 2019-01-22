@@ -3,39 +3,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Phone Ratings</title>
+    <link rel="stylesheet" href="style.css">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-
-    <style>
-        .stars-outer{
-            position: relative;
-            display: inline-block;
-        }
-
-        .stars-inner{
-            position: absolute;
-            top: 0;
-            left: 0;
-            white-space: nowrap;
-            overflow: hidden;
-            width: 0;
-        }
-
-        .stars-outer::before{
-            content: "\f005 \f005 \f005 \f005 \f005";
-            font-family: "Font Awesome 5 Free";
-            font-weight: 900;
-            color: #ccc;
-        }
-
-        .stars-inner::before{
-            content: "\f005 \f005 \f005 \f005 \f005";
-            font-family: "Font Awesome 5 Free";
-            font-weight: 900;
-            color: #f8ce0b;
-        }
-    </style>
 </head>
 <body>
     <div class="container mt-5">
@@ -113,68 +84,7 @@
         </table>
     </div>
 
-    <script>
-        // Init ratings
-        const ratings = {
-            android: 4.7,
-            iphone: 3.5,
-            windows: 2.3,
-            blackBerry: 3.6,
-            huawei: 3.2
-        }
-
-        // Total stars
-        const starsTotal = 5;
-
-        // Run getRatings when DOM starts
-        document.addEventListener("DOMContentLoaded", getRatings);
-
-        // Form elements
-        const productSelect = document.getElementById("product-select");
-        const ratingControl = document.getElementById("rating-control");
-
-        // init product
-        let product;
-
-        // product select change
-        productSelect.addEventListener("change", (e) => {
-            product = e.target.value;
-            // Enable rating control
-            ratingControl.disabled = false;
-            ratingControl.value = ratings[product];
-        });
-
-        // Rating Control change
-        ratingControl.addEventListener("blur", (e) => {
-            const rating = e.target.value;
-
-            // check if 5 or under
-            if(rating > 5){
-                alert("Please rate 1 - 5");
-                return;
-            }
-
-            // Change rating 
-            ratings[product] = rating;
-
-            getRatings();
-        });
-
-        // Get ratings
-        function getRatings(){
-            for(let rating in ratings){
-                // get percentage
-                const starPercentage = (ratings[rating] / starsTotal) * 100;
-                // Round to nearest 10
-                const starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
-                // Set width of stars-inner to percentage
-                document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded;
-
-                // Add number rating
-                document.querySelector(`.${rating} .nb-rating`).innerHTML = ratings[rating];
-            }
-        }
-    </script>
+<script src="app.js"></script>
 
 </body>
 </html>
